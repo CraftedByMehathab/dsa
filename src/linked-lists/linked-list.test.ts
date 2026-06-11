@@ -150,3 +150,113 @@ test("survives mixed add and delete operations", () => {
   list.addLast(4); // [2, 4]
   expect([...list]).toEqual([2, 4]);
 });
+
+test("getKthFromEnd returns the last element for k = 1", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  list.addLast(4);
+  list.addLast(5);
+  expect(list.getKthFromEnd(1)).toBe(5);
+});
+
+test("getKthFromEnd returns a middle element", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  list.addLast(4);
+  list.addLast(5);
+  expect(list.getKthFromEnd(3)).toBe(3);
+});
+
+test("getKthFromEnd returns the first element when k equals the length", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  list.addLast(4);
+  list.addLast(5);
+  expect(list.getKthFromEnd(5)).toBe(1);
+});
+
+test("getKthFromEnd returns undefined when k is larger than the list", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  expect(list.getKthFromEnd(3)).toBeUndefined();
+});
+
+test("getKthFromEnd returns undefined for k = 0", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  expect(list.getKthFromEnd(0)).toBeUndefined();
+});
+
+test("getKthFromEnd returns undefined for negative k", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  expect(list.getKthFromEnd(-2)).toBeUndefined();
+});
+
+test("getKthFromEnd returns undefined on an empty list", () => {
+  const list = new LinkedList<number>();
+  expect(list.getKthFromEnd(1)).toBeUndefined();
+});
+
+test("getMiddle returns undefined on an empty list", () => {
+  const list = new LinkedList<number>();
+  expect(list.getMiddle()).toBeUndefined();
+});
+
+test("getMiddle returns the only element for a single-element list", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  expect(list.getMiddle()).toBe(1);
+});
+
+test("getMiddle returns both middles for a two-element list", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  expect(list.getMiddle()).toEqual([1, 2]);
+});
+
+test("getMiddle returns the single middle for an odd-length list", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  expect(list.getMiddle()).toBe(2);
+});
+
+test("getMiddle returns the single middle for a longer odd-length list", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  list.addLast(4);
+  list.addLast(5);
+  expect(list.getMiddle()).toBe(3);
+});
+
+test("getMiddle returns the two middles for an even-length list", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  list.addLast(4);
+  expect(list.getMiddle()).toEqual([2, 3]);
+});
+
+test("getMiddle returns the two middles for a longer even-length list", () => {
+  const list = new LinkedList<number>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  list.addLast(4);
+  list.addLast(5);
+  list.addLast(6);
+  expect(list.getMiddle()).toEqual([3, 4]);
+});

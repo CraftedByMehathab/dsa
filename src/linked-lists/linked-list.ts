@@ -66,6 +66,51 @@ export class LinkedList<T> {
     console.log([...this].join(" -> "));
   }
 
+  reverse() {
+    // prev current next
+    if (!this.#first) return;
+    let prev = this.#first;
+    let current = prev.next;
+    while (current?.next) {
+      const next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    this.#last = this.#first;
+    this.#last.next = null;
+    this.#first = prev;
+  }
+
+  getKthFromEnd(k: number): T | undefined {
+    if (k <= 0) return undefined;
+
+    let right = this.#first;
+    for (let i = 0; i < k; i++) {
+      if (right === null) return undefined; // k is larger than the list
+      right = right.next;
+    }
+
+    let left = this.#first;
+    while (right) {
+      left = left!.next;
+      right = right.next;
+    }
+    return left?.value;
+  }
+
+  getMiddle(): T | [T, T] | undefined {
+    if (!this.#first) return undefined;
+    let slow: LinkedNode<T> = this.#first;
+    let fast: LinkedNode<T> | null = this.#first;
+
+    while (fast?.next?.next) {
+      slow = slow.next!;
+      fast = fast.next.next;
+    }
+    return fast === this.#last ? slow.value : [slow.value, slow.next!.value];
+  }
+
   *[Symbol.iterator]() {
     let current = this.#first;
     while (current) {
